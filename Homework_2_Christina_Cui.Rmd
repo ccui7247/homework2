@@ -9,7 +9,7 @@ output:
 ---
 ### Name: Christina Cui
 ### UT EID: cc75352
-### Github Link: https://github.com/ccui7247/homework2 
+### Github Link: https://github.com/ccui7247/homework2
 
 ```{r setup, include = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -218,20 +218,21 @@ The line graph above shows changes in musical diversity for Billboard 100 charts
 ### Part C:
 
 ```{r message=FALSE}
-ten_week_hits <- billboard %>% group_by(performer, song, year) %>% 
-  summarize(weeks_on_chart = max(week) - min(week)) %>% filter(weeks_on_chart >= 10)
+ten_weeks <- billboard %>%
+  group_by(song, performer) %>% 
+  summarize(count = max(weeks_on_chart)) %>%
+  filter(count >= 10)
 
-thirty_charts <- ten_week_hits %>% 
-  group_by(performer, song) %>% 
-  separate_rows(performer, sep = "( Featuring | featuring )") %>%
+thirty_artists <- ten_weeks %>%
   group_by(performer) %>%
-  summarize(sum_num = n()) %>% filter(sum_num > 30)
+  summarize(count_artist = n_distinct(song)) %>%
+  filter(count_artist >= 30)
 
-ggplot(thirty_charts) + 
-  geom_bar(aes(x = sum_num, y = performer), stat = "identity") + 
+ggplot(thirty_artists) +  geom_bar(aes(x = count_artist, y = performer), stat = "identity") + 
   labs(x = "Number of Ten Week Hits",
        y = "Performer Names",
        title = "Artists with Over 30 Ten Week Hits")
+
 ```
 
-The bar plot above shows the 19 artists who have had more than 30 songs classified as "ten week hits", in which the songs charted for at least 10 weeks. Songs featuring multiple artists have been counted as well; for example, Drake had multiple songs that he was featured on that were 10 week hits. 
+The bar plot above shows the 19 artists who have had more than 30 songs classified as "ten week hits", in which the songs charted for at least 10 weeks. As shown from the chart, Elton John had the most number of ten week hits, with over 50 songs. 
