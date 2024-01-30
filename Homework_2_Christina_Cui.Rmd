@@ -9,7 +9,7 @@ output:
 ---
 ### Name: Christina Cui
 ### UT EID: cc75352
-### Github Link: 
+### Github Link: https://github.com/ccui7247/homework2 
 
 ```{r setup, include = FALSE, message = FALSE}
 knitr::opts_chunk$set(echo = FALSE)
